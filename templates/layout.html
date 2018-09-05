@@ -2,8 +2,14 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <html>
   <head>
-    <title>T-Code{% block title %}{% endblock %}</title>
-    <h1>T-Code</h1>
+    <title>
+      T-Code
+      {% block title %}
+      {% endblock %}
+    </title>
+    <h1>
+      T-Code
+    </h1>
     {% block head %}
     {% endblock %}
 
@@ -24,7 +30,8 @@
   </head>
 
   <body>
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
     <hr>
     © copyright 2018 T-Code
   </body>
