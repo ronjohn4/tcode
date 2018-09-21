@@ -8,8 +8,10 @@ class DB():
         self.conn = self._create_connection(self.db_file)
         self._create_shirts_table()
 
+
     def commit(self):
         self.conn.commit()
+
 
     def _create_connection(self, db_file):
         """ create a database connection to the SQLite database
@@ -25,8 +27,10 @@ class DB():
 
         return None
 
+
     def commit(self):
         self.conn.commit()
+
 
     def _create_table(self, create_table_sql):
         """ create a table from the create_table_sql statement
@@ -39,6 +43,7 @@ class DB():
             c.execute(create_table_sql)
         except sqlite3.Error as e:
             print(e)
+
 
     def _create_shirts_table(self):
         """ create a table from the create_table_sql statement
@@ -68,8 +73,6 @@ class DB():
         return cur.lastrowid
 
 
-
-
     class shirt():
         def __init__(self):
             self.id = None
@@ -88,9 +91,6 @@ class DB():
 
         def __str__(self):
             return 'snippet: ' + str(self.id) + '|' + self.snippet + '|' + str(self.last_updated) + '|' + str(self.added)
-
-
-
 
 
 

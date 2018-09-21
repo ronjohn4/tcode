@@ -1,6 +1,9 @@
 from flask import Flask
-from config import Config
 from flask_menu import Menu
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
+from config import Config
 
 # # mandatory
 # CODEMIRROR_LANGUAGES = ['python', 'html']
@@ -16,4 +19,7 @@ app.config.from_object(Config)
 Menu(app=app)
 # db = DB('tcode.db')
 
-from app import routes
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+from app import routes, models
