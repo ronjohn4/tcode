@@ -8,11 +8,26 @@ from flask import render_template, flash, redirect, url_for
 @app.route('/', methods=['GET', 'POST'])
 @register_menu(app, 'home', 'Home', order=0)
 def home():
-    form2 = ShirtForm()
-    form = LoginForm()
+    form = ShirtForm()
     form.shirt = 'form1 shirt'
 
-    return render_template('home.html', form=form, form2=form2)
+    if form.validate_on_submit():
+        flash('Save shirt')
+
+    return render_template('home.html', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+@register_menu(app, 'login', 'Login', order=3)
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        flash('Login requested for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data))
+        return redirect('/home')
+
+    return render_template('login.html', form=form)
 
 
 @app.route('/track', methods=['GET'])

@@ -7,11 +7,23 @@
       {% block title %}
       {% endblock %}
     </title>
+
     <h1>
       T-Code
     </h1>
+
     {% block head %}
     {% endblock %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+     {% endwith %}
 
     <div id="hnav2">
         <ul>
