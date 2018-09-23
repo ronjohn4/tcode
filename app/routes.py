@@ -10,21 +10,17 @@ from app.forms import LoginForm, RegistrationForm, EditProfileForm, EditSnippetF
 @app.route('/index', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    form = None
-
-    if form.validate_on_submit():
-        flash('Save shirt')
 
     if current_user.is_authenticated:
         snippets = [
-            {'name': 'Snippet 1', 'snippet': '', 'timestamp':'', 'user': 'Ron J'},
-            {'name': 'Code Gode', 'snippet': '', 'timestamp': '', 'user': 'Ron J'},
-            {'name': 'Something happened here', 'snippet': '', 'timestamp': '', 'user': 'Ron J'}
+            {'id': 1, 'snippetname': 'Snippet 1', 'snippet': '', 'timestamp':'', 'user': 'Ron J'},
+            {'id': 2, 'snippetname': 'Code Gode', 'snippet': '', 'timestamp': '', 'user': 'Ron J'},
+            {'id': 3, 'snippetname': 'Something happened here', 'snippet': '', 'timestamp': '', 'user': 'Ron J'}
         ]
     else:
         snippets = []
 
-    return render_template('index.html', form=form, snippets=snippets)
+    return render_template('index.html', snippets=snippets)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -97,6 +93,8 @@ def edit_profile():
 
 
 @app.route('/snippet/<id>')
+@app.route('/snippet/')
+@app.route('/snippet')
 @login_required
 def snippet(id):
     snippet = Snippet.query.filter_by(id=id).first_or_404()

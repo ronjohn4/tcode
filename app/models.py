@@ -3,8 +3,8 @@
 # pip install flask-migrate
 # flask db init
 #
-# flask db upgrade
 # flask db migrate -d "migrate comment"
+# flask db upgrade
 #
 # flask db downgrade
 
@@ -45,7 +45,7 @@ def load_user(id):
 
 class Snippet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20))
+    snippetname = db.Column(db.String(20))
     snippet = db.Column(db.String)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     use_count = db.Column(db.Integer)

@@ -11,7 +11,7 @@
 {% else %}
     <ul>
     {% for snippet in snippets %}
-        <li><a href="{{ url_for('snippet') }}">{{ snippet.name }}/a></li>
+        <li><a href="{{ url_for('snippet', id=snippet.id) }}">{{ snippet.snippetname }}-{{snippet.id}}</a></li>
     {% endfor %}
     </ul>
 {% endif %}

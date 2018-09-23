@@ -10,7 +10,7 @@ class EditProfileForm(FlaskForm):
 
 
 class EditSnippetForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
+    snippetname = StringField('Name', validators=[DataRequired()])
     snippet = TextAreaField('Snippet', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
 
