@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+
+<br>
+<h2>My snippets</h2>
+
+{% if current_user.is_anonymous %}
+    <a href="{{ url_for('login') }}">Login</a> to see your snippets
+{% else %}
+    {% for snippet in snippets %}
+    <table>
+        <tr valign="top">
+            <td>{{ snippet.name }}</td>
+        </tr>
+    </table>
+    {% endfor %}
+{% endif %}
+
+<br>
+<h2>Top 10 Snippets</h2>
+select a snippet to edit
+<ul>
+    <li>snippet 1</li>
+    <li>snippet 2</li>
+    <li>snippet 3</li>
+</ul>
+
+{% endblock %}
