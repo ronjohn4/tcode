@@ -9,11 +9,11 @@
 # flask db downgrade
 
 from datetime import datetime
-from app import db
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app import login
 from hashlib import md5
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from app import db, login
 
 
 class User(UserMixin, db.Model):
@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -44,10 +45,10 @@ def load_user(id):
 
 class Snippet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(140))
     name = db.Column(db.String(20))
     snippet = db.Column(db.String)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    use_count = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):

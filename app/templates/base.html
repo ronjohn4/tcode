@@ -30,7 +30,7 @@
     <div id="hnav2">
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('user', username=current_user.username) }}">Profile</a></li>
+            <li><a href="{{ url_for('profile', username=current_user.username) }}">Profile</a></li>
             <li>
             {% if current_user.is_anonymous %}
                 <a href="{{ url_for('login') }}">Login</a>

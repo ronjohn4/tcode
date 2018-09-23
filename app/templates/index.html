@@ -9,13 +9,11 @@
 {% if current_user.is_anonymous %}
     <a href="{{ url_for('login') }}">Login</a> to see your snippets
 {% else %}
+    <ul>
     {% for snippet in snippets %}
-    <table>
-        <tr valign="top">
-            <td>{{ snippet.name }}</td>
-        </tr>
-    </table>
+        <li><a href="{{ url_for('snippet') }}">{{ snippet.name }}/a></li>
     {% endfor %}
+    </ul>
 {% endif %}
 
 <br>

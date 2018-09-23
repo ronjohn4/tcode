@@ -5,8 +5,13 @@ from app.models import User
 
 
 class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
+    username = StringField('Name', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class EditSnippetForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    snippet = TextAreaField('Snippet', validators=[Length(min=0, max=140)])
     submit = SubmitField('Submit')
 
 
@@ -15,11 +20,6 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
-
-
-class ShirtForm(FlaskForm):
-    shirtname = StringField('Shirt Name', validators=[DataRequired()])
-    submit = SubmitField('Save Shirt')
 
 
 class RegistrationForm(FlaskForm):

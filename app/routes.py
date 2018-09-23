@@ -3,15 +3,14 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
 from app import app, db
-from app.models import User
-from app.forms import LoginForm, ShirtForm, RegistrationForm
+from app.models import User, Snippet
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, EditSnippetForm
 
 
 @app.route('/index', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    form = ShirtForm()
-    form.shirt = 'form1 shirt'
+    form = None
 
     if form.validate_on_submit():
         flash('Save shirt')
@@ -69,16 +68,36 @@ def register():
 
 
 # ToDo - reroute from authentication doesn't pass in username
-@app.route('/user/<username>')
-@app.route('/user/')
-@app.route('/user')
+@app.route('/profile/<username>')
+@app.route('/profile/')
+@app.route('/profile')
 @login_required
-def user(username):
+def profile(username):
     user = User.query.filter_by(username=username).first_or_404()
     snippets = [
         {'name': 'Snippet 1', 'snippet': '', 'timestamp':'', 'user': 'Ron J'},
         {'name': 'Code Gode', 'snippet': '', 'timestamp': '', 'user': 'Ron J'},
         {'name': 'Something happened here', 'snippet': '', 'timestamp': '', 'user': 'Ron J'}
     ]
+    return render_template('profile.html', user=user, snippets=snippets)
 
-    return render_template('user.html', user=user, snippets=snippets)
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('profile', username=current_user.username))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+    return render_template('edit_profile.html', title='Edit Profile', form=form)
+
+
+@app.route('/snippet/<id>')
+@login_required
+def snippet(id):
+    snippet = Snippet.query.filter_by(id=id).first_or_404()
+    return render_template('snippet.html', snippet=snippet)
