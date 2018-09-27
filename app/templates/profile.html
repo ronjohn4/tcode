@@ -4,17 +4,20 @@
 {% block head %}{% endblock %}
 
 {% block content %}
-User Maintenance
     <table>
         <tr valign="top">
             <td><img src="{{ user.avatar(128) }}"></td>
-            <td><h1>User: {{ user.username }}</h1></td>
         </tr>
     </table>
 
-    <h1>User: {{ user.username }}</h1>
-    {{user.about_me}}
+    <h1>{{ user.username }}</h1>
+    <p>{{user.about_me}}</p>
+    <p>{{ user.last_seen }}</p>
     <hr>
+
+    {% if user == current_user %}
+    <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+    {% endif %}
 
     {% for snippet in snippets %}
     <table>
@@ -24,5 +27,7 @@ User Maintenance
         </tr>
     </table>
     {% endfor %}
+
+    <a href="{{ url_for('add_snippet') }}">Add Snippet</a></p>
 
 {% endblock %}

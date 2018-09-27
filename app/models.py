@@ -3,6 +3,7 @@
 # pip install flask-migrate
 # flask db init
 #
+# from app.models import User
 # flask db migrate -d "migrate comment"
 # flask db upgrade
 #
@@ -22,6 +23,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    snippets = db.relationship('Snippet', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

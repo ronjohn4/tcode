@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>{{ form.snippetname.label }} {{ form.snippetname() }}</p>
+    <p>{{ form.submit() }}</p>
+</form>
+
+
+
+<meta charset="utf-8"/>
+
+<link rel=stylesheet href="/static/doc/docs.css">
+<link rel="stylesheet" href="/static/lib/codemirror.css">
+
+<script src="/static/lib/codemirror.js"></script>
+<script src="/static/addon/edit/matchbrackets.js"></script>
+<script src="/static/mode/python/python.js"></script>
+
+<div class="container">
+    <img src="/static/images/tshirt.png" class="center">
+
+    <div class="tag">
+        <article>
+            <textarea id="code" name="code">
+# Some Example code
+import os
+from package import ParentClass
+
+@nonsenseDecorator
+def doesNothing():
+    pass
+
+class ExampleClass(ParentClass):
+    def __init__(self, mixin = 'Hello'):
+        self.mixin = mixin
+
+    @staticmethod
+    def example(inputStr):
+        a = list(inputStr)
+        a.reverse()
+        return ''.join(a)
+            </textarea>
+
+            <script>
+                var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                    mode: {name: "python",
+                           version: 3,
+                           singleLineStringErrors: false},
+                    lineNumbers: true,
+                    indentUnit: 4,
+                    matchBrackets: true
+                });
+
+                CodeMirror.fromTextArea(document.getElementById("code-cython"), {
+                    mode: {name: "text/x-cython",
+                           version: 2,
+                           singleLineStringErrors: false},
+                    lineNumbers: true,
+                    indentUnit: 4,
+                    matchBrackets: true
+                });
+            </script>
+
+        </article>
+   </div>
+</div>
+{% endblock %}
